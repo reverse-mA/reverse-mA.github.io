@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/9 | reverse-mA</title>
+  <title>CPU的各种参数的意义 | reverse-mA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="reverse-mA">
-<meta property="og:url" content="http://yoursite.com/archives/2019/09/index.html">
+  <meta name="description" content="​    对CPU各种参数意义的简要介绍。 ​">
+<meta name="keywords" content="操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CPU的各种参数的意义">
+<meta property="og:url" content="http://yoursite.com/2019/10/02/CPU的各种参数的意义/index.html">
 <meta property="og:site_name" content="reverse-mA">
+<meta property="og:description" content="​    对CPU各种参数意义的简要介绍。 ​">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-02T13:51:15.953Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="reverse-mA">
+<meta name="twitter:title" content="CPU的各种参数的意义">
+<meta name="twitter:description" content="​    对CPU各种参数意义的简要介绍。 ​">
   
     <link rel="alternative" href="/atom.xml" title="reverse-mA" type="application/atom+xml">
   
@@ -180,60 +185,190 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-CPU的各种参数的意义" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/27/preface/" class="archive-article-date">
-  	<time datetime="2019-09-27T11:50:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-27</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/27/preface/">序</a>
+    <h1 class="article-title" itemprop="name">
+      CPU的各种参数的意义
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/10/02/CPU的各种参数的意义/" class="archive-article-date">
+  	<time datetime="2019-10-02T13:08:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​    对CPU各种参数意义的简要介绍。</p>
+<p>​    <a id="more"></a></p>
+<h2 id="1-CPU位数的意义"><a href="#1-CPU位数的意义" class="headerlink" title="1. CPU位数的意义"></a>1. CPU位数的意义</h2><h3 id="1-1-对于位数下个定义"><a href="#1-1-对于位数下个定义" class="headerlink" title="1.1 对于位数下个定义"></a>1.1 对于位数下个定义</h3><p>​    1978年6月，intel推出第一款16位微处理器8086。</p>
+<p>​    1985年发布80386，处理器变为32位。</p>
+<p>​    这里的16位和32位其实代表CPU的字长。</p>
+<p>​    字长和字节是有区别的，字节是固定大小的，一个字节的大小就是8bit；而字长是根据CPU的不同而变化的，比如8086的字长就是2字节，80386的字长就是4字节。</p>
+<h3 id="1-2-字长的用处"><a href="#1-2-字长的用处" class="headerlink" title="1.2 字长的用处"></a>1.2 字长的用处</h3><p>​    那么这个字长有何用处？为什么大家更加倾向于认为字长更大的CPU性能更优越？（虽然CPU的性能涉及到许多方面，但在其他条件相同的条件下，字长更大的CPU性能的确更优越）</p>
+<p>​    字长代表了CPU一次能够并行处理的数的最长位数。比如，8086一次能处理的最大数是2^16-1，而80386一次能处理的最大数是2^32-1。（仅从二进制的情况考虑，不考虑数表示的意义）那么，在处理较大数字的时候，CPU位数小的CPU可能需要将数字分为多次处理，这样就降低了计算的速率，从这个层面上说，字长更大的CPU在处理大数时更加具有优势。</p>
+<h3 id="1-3-字长的决定因素"><a href="#1-3-字长的决定因素" class="headerlink" title="1.3 字长的决定因素"></a>1.3 字长的决定因素</h3><p>​    CPU的字长由什么决定？这涉及到CPU的组成，一般来说，CPU由内部数据线和外部数据线组成。内部数据线承担着在CPU内部计算过程中传递中间结果的作用（比如前一位做完异或运算后产生的进位等等），外部数据线承担着和内存交换数据的作用，CPU的字长是由内部数据线决定的。</p>
+<p>​    举例来说，8086的CPU内部数据线为16位，而外部数据线为8位，那么就说它的字长为16位，仍是16位处理器，只不过是CPU与内存交换数据时是按8位方式传送数据的。又比如Pentium4 CPU内部数据线为32位，而外部地址线是36位， 外部数据线为64位，它的字长仍然为32位，所以Pentium4还是32位处理器，而不能称为64位处理器。</p>
+<h3 id="1-4-参考资料"><a href="#1-4-参考资料" class="headerlink" title="1.4 参考资料"></a>1.4 参考资料</h3><p>参考：<a href="https://www.cnblogs.com/yilang/p/11001913.html" target="_blank" rel="noopener">https://www.cnblogs.com/yilang/p/11001913.html</a></p>
+<h2 id="2-CPU的地址线"><a href="#2-CPU的地址线" class="headerlink" title="2. CPU的地址线"></a>2. CPU的地址线</h2><p>​    CPU的地址线是用来寻找内存地址的。比如，8086的地址线是20位的，表明他的寻址空间的大小是2^20B也就是1MB，这就表明他最多能找到1MB大小的内存；再比如，80386的地址线是32位的，表明他的寻址空间的大小是2^32B也就是4GB，也就是说他最多能找到4GB大小的内存。</p>
+<p>​    顺便列一下单位换算：</p>
+<p>​    1B = 8bit（B：字节，bit：比特）</p>
+<p>​    1KB = 2^10B(1024B)</p>
+<p>​    1MB = 2^10KB</p>
+<p>​    1GB = 2^10MB</p>
+<p>​    1TB = 2^10GB</p>
+<h2 id="3-CPU的主频"><a href="#3-CPU的主频" class="headerlink" title="3. CPU的主频"></a>3. CPU的主频</h2><p>​    8086芯片的主频为4.43 MHz, 80286处理器的主频提高到了12 MHz。那么，是否说明主频越大的CPU性能越好？其实不然，但如果将条件限定在其他条件相同下时（特别是执行一条CPU指令所用的时钟周期数相同的条件），我们可以认为此时CPU的性能更加优越。</p>
+<p>​    CPU的主频实际上是CPU的时钟频率，而时钟频率是时钟周期的倒数。也就是说，主频越大，表明CPU的一个时钟周期越短。通常我们通过指令执行所需要的时钟周期数衡量一条指令，也就是说，如果指令执行所需的时钟周期数不变，主频越大表明该指令执行的越快。</p>
+<h2 id="4-大端和小端"><a href="#4-大端和小端" class="headerlink" title="4. 大端和小端"></a>4. 大端和小端</h2><p>​    大端和小端严格来说不算是CPU的性能参数，它更多的是一种策略的选择。</p>
+<p>​    大端也叫做高尾端，意思是把尾端放在高地址，小端也叫做低尾端，意思是把尾端放在低地址。</p>
+<p>​    举例来说，比如说有一个数是0x11223344，这个数占用4个字节，假设地址编号分别为1、2、3、4，那么大端的处理方式是：11存在地址1，…，44存在地址4；小端的处理方式是：11存在地址4，…，44存在地址1。</p>
+<p>​    80x86系列均采用小端的策略。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/02/CPU的各种参数的意义/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/09/27/preface/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">序</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -256,8 +391,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
