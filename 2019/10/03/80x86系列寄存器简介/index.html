@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>reverse-mA</title>
+  <title>8086寄存器简介 | reverse-mA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="reverse-mA">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="​    本文将介绍Intel于1978年推出的8086CPU中的寄存器。">
+<meta name="keywords" content="操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8086寄存器简介">
+<meta property="og:url" content="http://yoursite.com/2019/10/03/80x86系列寄存器简介/index.html">
 <meta property="og:site_name" content="reverse-mA">
+<meta property="og:description" content="​    本文将介绍Intel于1978年推出的8086CPU中的寄存器。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/10/03/a7IV8Wg6HFqxB3Q.jpg">
+<meta property="og:updated_time" content="2019-10-03T14:55:25.933Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="reverse-mA">
+<meta name="twitter:title" content="8086寄存器简介">
+<meta name="twitter:description" content="​    本文将介绍Intel于1978年推出的8086CPU中的寄存器。">
+<meta name="twitter:image" content="https://i.loli.net/2019/10/03/a7IV8Wg6HFqxB3Q.jpg">
   
     <link rel="alternative" href="/atom.xml" title="reverse-mA" type="application/atom+xml">
   
@@ -180,16 +187,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-80x86系列寄存器简介" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-80x86系列寄存器简介" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/03/80x86系列寄存器简介/">8086寄存器简介</a>
+    <h1 class="article-title" itemprop="name">
+      8086寄存器简介
     </h1>
   
 
@@ -203,11 +208,125 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>​    本文将介绍Intel于1978年推出的8086CPU中的寄存器。</p>
-        
-          <a class="article-more-a" href="/2019/10/03/80x86系列寄存器简介/#more">more >></a>
-        
+<a id="more"></a>
+
+<p>[TOC]</p>
+<h2 id="1-概览"><a href="#1-概览" class="headerlink" title="1. 概览"></a>1. 概览</h2><h3 id="1-1-为什么要有寄存器"><a href="#1-1-为什么要有寄存器" class="headerlink" title="1.1 为什么要有寄存器"></a>1.1 为什么要有寄存器</h3><p>​    众所周知，计算机就干两件事：“算”和“存”。CPU就是计算机中用于“算”的那部分，而内存、硬盘等用来存。而内存和硬盘都是位于CPU外部的，这也就是说，如果CPU仅仅提供“算”的功能，每次计算所产生的中间数据都得存到内存中，在用到这些中间结果时，还得去内存中取。（硬盘也是一样，但因为内存的存取速度高于硬盘，故此处以内存为例）为了提高计算机的性能，不要让CPU每次算都得到内存中去存储中间结果、计数之类，就产生了寄存器。寄存器是CPU中用来“存”的部分，常常用来存储中间结果、计数、存储指令代码和数据的地址等。有了寄存器，CPU可以在一定程度上减小和内存的通信，这样就提高了计算机的性能。</p>
+<h3 id="1-2-寄存器简介及分类"><a href="#1-2-寄存器简介及分类" class="headerlink" title="1.2 寄存器简介及分类"></a>1.2 寄存器简介及分类</h3><p>​    8086CPU是16位的，这意味着CPU能够同时并行处理的数的字长为16位，基于这个原因，8086系列的寄存器都被设置为16位。</p>
+<p>​    在 8086 CPU 中，CPU 是根据 &lt;段地址：偏移地址&gt; 来进行寻址操作的。这是因为CPU的内部数据线只有16根，而外部数据线有20根，这意味着在一个16位的寄存器中无法存储一个完整的地址。在8086系列的寄存器中，一般用一个16位的寄存器存储段地址，用另一个16位的寄存器存储偏移地址，总共32位，这样就完全能够满足寻址的功能了。具体操作时，现将存储段地址的寄存器中的数字左移4位，再加上偏移地址的值，就能够对应到地址了。</p>
+<p>​    寄存器分为数据寄存器、变址寄存器、指针寄存器、段寄存器和控制寄存器。</p>
+<p>​    其中，数据寄存器、变址寄存器和指针寄存器又称为通用寄存器，这意味着它们并不是“专用”的，除了能做下面即将介绍的工作外，他们都还能用来存储计算的中间结果、计数、存储地址或地址偏移量等。</p>
+<p>​    段寄存器和控制寄存器不是通用寄存器，他们是专用的。这也意味着他们不能做除了以下即将介绍的功能以外的其他事。</p>
+<p>​    对于寄存器的分类，可以参考下图。</p>
+<p><img src="https://i.loli.net/2019/10/03/a7IV8Wg6HFqxB3Q.jpg" alt="8ef0ae948f3f9b294594ae8ac61d5eea.jpg"></p>
+<h2 id="2-数据寄存器"><a href="#2-数据寄存器" class="headerlink" title="2. 数据寄存器"></a>2. 数据寄存器</h2><p>​    数据寄存器主要用于存储计算的中间结果、计数、存储地址或地址偏移量。</p>
+<p>​    如上图，数据寄存器总共有4个，即AX、BX、CX、DX寄存器。</p>
+<p>​    每一个16位的数据寄存器可以被拆分为两个8位的寄存器，比如AX寄存器可以被拆分为AH和AL寄存器。可以被拆分的理由是能够兼容以前的8位程序。</p>
+<p>​    注意，拆分后的寄存器被视为两个独立的寄存器，此时二者是没有关系的。</p>
+<h3 id="2-1-AX寄存器"><a href="#2-1-AX寄存器" class="headerlink" title="2.1 AX寄存器"></a>2.1 AX寄存器</h3><p>​    AX寄存器即累加寄存器，主要用于存储计算的中间结果。由于它是通用寄存器，他也能做其他的事，不再赘述。</p>
+<p>​    AX寄存器在除法的时候有一些特殊的作用。</p>
+<p>​    在除数是8位的时候，被除数一定是16位，此时AX寄存器用于存储被除数。当计算结束后，AH用于存储余数，AL用于存储商。</p>
+<p>​    而当除数是16位的时候，被除数就必须是32位，此时AX寄存器不够存了，就需要DX寄存器来补，具体操作是AX寄存器用来存储低16位，DX寄存器用来存储高16位（这和CPU采用小端的方式是吻合，尽管大小端的概念是适用于内存的）。当计算结束后，DX用于存储余数，AX用于存储商。</p>
+<p>​    再说乘法，AX寄存器在乘法的时候也有一些特殊的作用。需要先明确的是，乘法时乘数要么都是8位，要么都是16位。</p>
+<p>​    在乘数都是8位的时候，一般AL用来存其中一个乘数，CPU中的另一个寄存器或者内存来存另一个乘数。当运算结束后，结果为16位，运算结果保存在AX寄存器中。</p>
+<p>​    在乘数都是16位的时候，一般用AX寄存器来保存其中一个乘数，CPU中的另一个寄存器或者内存来存另一个乘数。当运算结束后，结果为32位。其中高位地址保存在DX寄存器中，低位地址保存在AX寄存器中。（同样和小端的方式吻合）</p>
+<p>​    上文中介绍了一些CPU中乘法和除法的知识，关于这部分的知识在计算机组成原理中一般有所涉及。有机会可能会在博文中看到。</p>
+<h3 id="2-2-BX寄存器"><a href="#2-2-BX寄存器" class="headerlink" title="2.2 BX寄存器"></a>2.2 BX寄存器</h3><p>​    BX寄存器即基地址寄存器，它主要用于寻址，且存放的地址一般是偏移地址。当然也能做其他事。</p>
+<p>​    BX寄存器同样可以分为BH和BL两个独立寄存器。</p>
+<p>​    关于BX寄存器，大家可能会常见有MOV AX,[BX]这样的用法。这是因为CPU 是根据 &lt;段地址：偏移地址&gt; 来进行寻址操作的。</p>
+<p>​    举个简单的例子：</p>
+<p>​    mov bx,1</p>
+<p>​    mov ax,[bx]</p>
+<p>​    默认ds（后文即将介绍的段寄存器中的一个）是1000H，如果加了括号，此时AX寄存器中的值是1001H，如果不加，则是1.</p>
+<p>​    我个人理解在bx旁边加括号表明他是偏移地址。不加就表示它是一个普通的数。</p>
+<h3 id="2-3-CX寄存器"><a href="#2-3-CX寄存器" class="headerlink" title="2.3 CX寄存器"></a>2.3 CX寄存器</h3><p>​    CX寄存器又叫做计数器，主要用于在循环过程中计数，当然也可以做其他事。</p>
+<p>​    CX寄存器同样可以分为CH和CL两个独立寄存器。</p>
+<p>​    当在汇编指令中使用循环 LOOP 指令时，可以通过 CX 来指定需要循环的次数，而 CPU 在每一次执行 LOOP 指令的时候，都会做两件事：</p>
+<ol>
+<li><p>CX = CX – 1，即令 CX 计数器自动减去 1；</p>
+</li>
+<li><p>判断 CX 中的值，如果 CX 中的值为 0 则会跳出循环，而继续执行循环下面的指令，如果 CX 中的值不为 0 ，则会继续执行循环中所指定的指令 。    </p>
+</li>
+</ol>
+<h3 id="2-4-DX寄存器"><a href="#2-4-DX寄存器" class="headerlink" title="2.4 DX寄存器"></a>2.4 DX寄存器</h3><p>​    DX寄存器也叫数据寄存器（好像重了但他本身确实叫Data Register），除了上文在AX寄存器中介绍的作用外，他还用于存储中间数据，IO端口地址等。由于是通用寄存器，他也能做其他事。</p>
+<p>​    DX寄存器同样可以分为DH和DL两个独立的寄存器。</p>
+<h2 id="3-变址寄存器-SI和DI"><a href="#3-变址寄存器-SI和DI" class="headerlink" title="3. 变址寄存器(SI和DI)"></a>3. 变址寄存器(SI和DI)</h2><p>​    在8086CPU中，变址寄存器就两个：SI和DI</p>
+<p>​    变址寄存器的功能和上文提到过的BX寄存器差不多，用来存储偏移地址。不同点在于变址寄存器不能被拆分为两个独立的寄存器。由于是通用寄存器，他也能做其他事。</p>
+<p>​    和BX类似，使用SI和DI也遵循[]的原则。</p>
+<p>​    关于变址寄存器的具体使用，可以参考博主所写的关于寻址方式的博客文章。</p>
+<h2 id="4-指针寄存器"><a href="#4-指针寄存器" class="headerlink" title="4. 指针寄存器"></a>4. 指针寄存器</h2><h3 id="4-1-BP"><a href="#4-1-BP" class="headerlink" title="4.1 BP"></a>4.1 BP</h3><p>​    BP (Base Pointer)也就是基指针寄存器，它和其他的几个用来进行寻址操作所使用的寄存器（还有 BX，SI，DI）没有太大的区别，也是用来存储偏移地址。BP不能被拆分。由于是通用寄存器，他也能做其他事。</p>
+<p>​    和BP配套的段寄存器默认是SS。（关于SS的介绍参考下文）</p>
+<p>​    和BX类似，使用BP遵循[]的原则。</p>
+<h3 id="4-2-SP"><a href="#4-2-SP" class="headerlink" title="4.2 SP"></a>4.2 SP</h3><p>​    SP(Stack Pointer)也就是栈顶指针寄存器。他也是用来存储偏移地址的，但和其他的几个寄存器不同的是，他只和SS这个段寄存器配套使用。</p>
+<p>​    在任何时刻，SS:SP  都是指向栈顶元素 。</p>
+<p>​    关于SP，还有一些关于它的相关操作。</p>
+<p>​    当使用  PUSH 指令向栈中压入 1 个字节单元时，SP = SP - 1；即栈顶元素会发生变化；</p>
+<p>​    而当使用  PUSH 指令向栈中压入  2 个字节的字单元时，SP = SP – 2 ；即栈顶元素也要发生变化；</p>
+<p>​    当使用  POP 指令从栈中弹出 1 个字节单元时， SP = SP + 1；即栈顶元素会发生变化；</p>
+<p>​    当使用  POP 指令从栈中弹出 2 个字节单元的字单元时， SP = SP + 2 ；即栈顶元素会发生变化；    </p>
+<p>​    其实只需记住，由于采用小端的策略，所以PUSH是减，pop是加。</p>
+<h2 id="5-段寄存器"><a href="#5-段寄存器" class="headerlink" title="5. 段寄存器"></a>5. 段寄存器</h2><p>​    CPU 是根据 &lt;段地址：偏移地址&gt; 来进行寻址操作的。所以段寄存器当然是用来存段地址的。</p>
+<p>​    CS是代码段寄存器；DS是数据段寄存器；SS是堆栈段寄存器；ES是附加段寄存器（可以理解为存啥都行）。</p>
+<h2 id="6-控制寄存器"><a href="#6-控制寄存器" class="headerlink" title="6. 控制寄存器"></a>6. 控制寄存器</h2><h3 id="6-1-IP"><a href="#6-1-IP" class="headerlink" title="6.1 IP"></a>6.1 IP</h3><p>​    IP被称为指令指针寄存器。说到IP，主要是谈它和CS的配套使用，即CS:IP的具体流程。</p>
+<p>​    众所周知，CPU进行“算”的过程也是需要指令来引导的，那么，CPU是怎么知道当前执行哪条指令的呢？</p>
+<p>​    首先需要了解，所谓的指令也是以01串的形式存储的，只不过设定了一些规则，使得CPU在处理这些代码段的过程中理解了自己需要做的操作而已。</p>
+<p>​    那么就需要一个寄存器，能够时刻告诉CPU去哪个内存地址取指令执行。</p>
+<p>​    这就是CS:IP寄存器组的作用。</p>
+<p>​    比如我们在写汇编程序时，通常会使用  START  标记，其实这个标记就是用来标记起始地址的，当将一个汇编程序编译，连接成可执行文件以后，再通过操作系统的  Shell  程序将可执行文件加载到内存中以后，这个  START  所标记处的地址就是整个可执行文件的起始地址了 。    也就是说，当一个可执行文件加载到内存中以后，CS:IP  两个寄存器便指向了这个可执行文件的起始地址，然后  CPU  就可以从这个起始地址开始往下读取指令，当读取完指令后，CS:IP  将会自动的改变，基本上是改变  IP ，从而指向下一条要读取的指令，这样就可以执行这个可执行文件了 。</p>
+<h3 id="6-2-Flag"><a href="#6-2-Flag" class="headerlink" title="6.2 Flag"></a>6.2 Flag</h3><p>​    Flag寄存器和其他寄存器不同。其他寄存器是所有位连起来当做一个数据处理，Flag寄存器是每一位都有其内在意义。直接放代码：</p>
+<p>CF（Carry  FLag） - 进位标志（第 0 位）：</p>
+<p>CF：    进位标志是用来反映计算时是否产生了由低位向高位的进位，或者产生了从高位到低位的借位 。</p>
+<p>if(运算过程中产生了进位或者借位)<br>{<br>        CF  =  1;<br>}<br>else<br>{<br>        CF  =  0;<br>}</p>
+<p>PF（Parity  FLag） - 奇偶标志（第 2 位）：</p>
+<p>PF：    奇偶标志是用来记录相关指令执行后，其结果的所有的  Bit  位中  1  的个数是否为偶数 。</p>
+<p>if(运算结果中 1 的个数为偶数)<br>{<br>        PF  =  1;<br>}<br>else<br>{<br>        PF  =  0;<br>}</p>
+<p>AF（Auxiliary  Carry  FLag） - 辅助进位标志（第 4 位）：</p>
+<p>AF：    用来辅助进位标志 。</p>
+<p>if(字节操作中发生低半个字节向高半个字节借位或者进位  ||  字操作中发生低字节向高字节借位或者进位)<br>{<br>       AF = 1;<br>}<br>else<br>{<br>       AF = 0;<br>}</p>
+<p>ZF（Zero  FLag） – 零标志（第 6 位）：</p>
+<p>ZF：    记录的是相关的指令执行完毕后，其执行的结果是否为  0 。</p>
+<p>if(执行的结果  ==  0)<br>{<br>       ZF = 1;<br>}<br>else<br>{<br>       ZF = 0;<br>}</p>
+<p>SF（Sign  FLag） - 符号标志（第 7 位）：</p>
+<p>SF：    符号标志，其记录相关指令执行完以后，其结果是否为负数 。</p>
+<p>if(运算结果为负数)<br>{<br>        SF  =  1;<br>}<br>else<br>{<br>        SF  =  0;<br>}</p>
+<p>TF（Trap  FLag） - 追踪标志（第 8 位）：</p>
+<p>TF：    追踪标志，主要是用于调试时使用 。</p>
+<p>if(TF  ==  1)<br>{<br>       CPU 进入单步方式;<br>}</p>
+<p>IF（Interrupt-Enable  FLag） - 中断允许标志（第 9 位）：</p>
+<p>IF：    中断允许标志，其决定  CPU  是否能够响应外部可屏蔽中断请求（以后会做详细介绍） 。</p>
+<p>if(IF  ==  1)<br>{<br>        CPU 能够响应外部的可屏蔽中断请求;<br>}<br>else<br>{<br>        CPU 不能够响应外部的可屏蔽中断请求;<br>}</p>
+<p>DF（Direction  FLag） - 方向标志（第 10 位）：</p>
+<p>DF：    方向标志，其用于在串处理指令中，用来控制每次操作后  SI  和  DI  是自增还是自减 。</p>
+<p>if(DF == 0)<br>{<br>        SI++;<br>        DI++;<br>}<br>else<br>{<br>        SI–;<br>        DI–;<br>}</p>
+<p>OF（OverFlow  FLag） - 溢出标志（第 11 位）：</p>
+<p>OF：    溢出标志，其通常记录了有符号数运算的结果是否发生了溢出 。</p>
+<p>if(运算发生溢出)<br>{<br>        OF  =  1;<br>}<br>else<br>{<br>        OF  =  0;<br>}</p>
+<h2 id="7-参考"><a href="#7-参考" class="headerlink" title="7. 参考"></a>7. 参考</h2><p><a href="https://blog.csdn.net/eminemdsp/article/details/51901532" target="_blank" rel="noopener">https://blog.csdn.net/eminemdsp/article/details/51901532</a></p>
+<p><a href="http://www.voidcn.com/article/p-blzxyqjb-s.html" target="_blank" rel="noopener">http://www.voidcn.com/article/p-blzxyqjb-s.html</a></p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多磨~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -227,16 +346,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/03/80x86系列寄存器简介/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/03/80x86系列寄存器简介/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/02/CPU的各种参数的意义/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CPU的各种参数的意义</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -256,161 +434,14 @@
 
 
 
-
   
-    <article id="post-CPU的各种参数的意义" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/02/CPU的各种参数的意义/">CPU的各种参数的意义</a>
-    </h1>
   
 
-        
-        <a href="/2019/10/02/CPU的各种参数的意义/" class="archive-article-date">
-  	<time datetime="2019-10-02T13:08:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>​    对CPU各种参数意义的简要介绍。</p>
-<p>​
-        
-          <a class="article-more-a" href="/2019/10/02/CPU的各种参数的意义/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/02/CPU的各种参数的意义/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-preface" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/27/preface/">序</a>
-    </h1>
   
 
-        
-        <a href="/2019/09/27/preface/" class="archive-article-date">
-  	<time datetime="2019-09-27T11:50:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>​    人类的历史也是数据的历史。</p>
-        
-          <a class="article-more-a" href="/2019/09/27/preface/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/27/preface/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
+
   
 
 
@@ -433,8 +464,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
