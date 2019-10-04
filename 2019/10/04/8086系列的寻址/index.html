@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | reverse-mA</title>
+  <title>8086系列的寻址 | reverse-mA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="reverse-mA">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+  <meta name="description" content="​    本篇文章将会介绍寻址及7种寻址方式。 ​">
+<meta name="keywords" content="操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8086系列的寻址">
+<meta property="og:url" content="http://yoursite.com/2019/10/04/8086系列的寻址/index.html">
 <meta property="og:site_name" content="reverse-mA">
+<meta property="og:description" content="​    本篇文章将会介绍寻址及7种寻址方式。 ​">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-04T07:14:18.146Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="reverse-mA">
+<meta name="twitter:title" content="8086系列的寻址">
+<meta name="twitter:description" content="​    本篇文章将会介绍寻址及7种寻址方式。 ​">
   
     <link rel="alternative" href="/atom.xml" title="reverse-mA" type="application/atom+xml">
   
@@ -180,36 +185,80 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-8086系列的寻址" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      8086系列的寻址
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/04/8086系列的寻址/" class="archive-article-date">
+
+        
+        <a href="/2019/10/04/8086系列的寻址/" class="archive-article-date">
   	<time datetime="2019-10-04T06:35:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-04</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/04/8086系列的寻址/">8086系列的寻址</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​    本篇文章将会介绍寻址及7种寻址方式。</p>
+<p>​    <a id="more"></a></p>
+<h2 id="1-寻址的定义"><a href="#1-寻址的定义" class="headerlink" title="1. 寻址的定义"></a>1. 寻址的定义</h2><p>​    寻址，就是找到操作数的地址，从而取出操作数的过程。</p>
+<h2 id="2-8086系列的寻址方式"><a href="#2-8086系列的寻址方式" class="headerlink" title="2. 8086系列的寻址方式"></a>2. 8086系列的寻址方式</h2><p>​    8086系列的寻址方式包括：立即寻址、直接寻址、寄存器寻址、寄存器间接寻址、寄存器相对寻址、基址加变址、相对基址加变址。下面将逐一讲解。</p>
+<h3 id="2-1-立即寻址"><a href="#2-1-立即寻址" class="headerlink" title="2.1 立即寻址"></a>2.1 立即寻址</h3><p>​    操作数包含在指令中，它作为指令的一部分，跟在操作码后存放在代码段。这种操作数称为立即数。</p>
+<p>​    立即寻址，指的是直接将立即数的值传给寄存器，实际上没有寻址的过程。</p>
+<p>​    比如指令：MOV AX, 1234H</p>
+<p>​    就直接将立即数1234H传给了寄存器AX</p>
+<h3 id="2-2-寄存器寻址"><a href="#2-2-寄存器寻址" class="headerlink" title="2.2 寄存器寻址"></a>2.2 寄存器寻址</h3><p>​    寄存器寻址，指的是直接将一个寄存器中的操作数取出，并传给另一个寄存器。</p>
+<p>​    比如指令：MOV AX, BX</p>
+<p>​    就直接将BX中的操作数传给了AX</p>
+<h3 id="2-3-直接寻址"><a href="#2-3-直接寻址" class="headerlink" title="2.3 直接寻址"></a>2.3 直接寻址</h3><p>​    直接寻址，指的是指令所要的操作数存放在内存中，在指令中直接给出该操作数的偏移地址，这种寻址方式为直接寻址方式。</p>
+<p>​    注意，前面的文章提到过，内存的地址是20位的，而一个寄存器只有16位，所以此时传过去的是段内的偏移地址。物理地址将由数据段寄存器DS和指令中给出的有效地址直接形成。</p>
+<p>​    比如：假设有指令：MOV BX, [1234H]，在执行时，(DS)=2000H，内存单元21234H的值为5213H。在执行这条指令的过程中，BX取的是地址1234H+20000H(左移4位)=21234H中的值，即此时BX的值是5213H</p>
+<h3 id="2-4-寄存器间接寻址"><a href="#2-4-寄存器间接寻址" class="headerlink" title="2.4 寄存器间接寻址"></a>2.4 寄存器间接寻址</h3><p>​    寄存器间接寻址，指的是指令所要的操作数存放在存储单元中，在其中一个寄存器中存储着操作数的偏移地址，这种寻址方式为寄存器间接寻址。</p>
+<p>​    在不使用段超越前缀的情况下，有下列规定：</p>
+<pre><code>1. 若有效地址用SI、DI和BX等之一来指定，则其缺省的段寄存器为DS；
+2. 若有效地址用BP来指定，则其缺省的段寄存器为SS(即：堆栈段)。</code></pre><p>​    比如：假设有指令：MOV BX,[DI]，在执行时，(DS)=1000H，(DI)=2345H，存储单元12345H的内容是4354H。在执行这条指令的过程中，BX去地址10000H(DS左移4位)+2345H = 12345H中取操作数，即取到4354H</p>
+<h3 id="2-5-寄存器相对寻址"><a href="#2-5-寄存器相对寻址" class="headerlink" title="2.5 寄存器相对寻址"></a>2.5 寄存器相对寻址</h3><p>​    其实和寄存器间接寻址相似，只不过可以在寄存器后面再跟一个常数，也就是说，此时寄存器中的值加常数的值是操作数的偏移地址。</p>
+<p>​    比如：假设有指令：MOV BX, [SI+100H]，在执行它时，(DS)=1000H，(SI)=2345H，内存单元12445H的内容为2715H。在执行这条指令的过程中，BX取的是10000H(DS左移4位)+(2345H+100H)(这一段是偏移地址)=12445H中的操作数，即2715H</p>
+<h3 id="2-6-基址加变址"><a href="#2-6-基址加变址" class="headerlink" title="2.6 基址加变址"></a>2.6 基址加变址</h3><p>​    基址加变址，指的是操作数在存储器中，其偏移地址是一个基址寄存器(BX、BP)和一个变址寄存器(SI、DI)的内容之和。</p>
+<p>​    注意，在不使用段超越前缀的情况下，规定：如果偏移地址中含有BP，则缺省的段寄存器为SS；否则，缺省的段寄存器为DS。</p>
+<p>​    比如：假设有指令：MOV BX, [BX+SI]，在执行时，(DS)=1000H，(BX)=2100H，(SI)=0011H，内存单元12111H的内容为1234H。在执行过程中，偏移地址中没有BP，所以默认的段寄存器是DS。所以BX去地址：10000H(DS左移4位)+(2100H+0011H) = 12111H中取操作数，即1234H</p>
+<h3 id="2-7-相对基址加变址"><a href="#2-7-相对基址加变址" class="headerlink" title="2.7 相对基址加变址"></a>2.7 相对基址加变址</h3><p>​    其实和基址加变址寻址类似，只不过在基址加变址后可以再跟一个常数，其他相同。</p>
+<p>​    比如：假设指令：MOV AX, [BX+SI+200H]，在执行时，(DS)=1000H，(BX)=2100H，(SI)=0010H，内存单元12310H的内容为1234H。在执行过程中，默认的段寄存器是DS，所以AX去10000H(DS左移4位)+2100H+0010H+200H = 12310H中取操作数，即1234H</p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多磨~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -221,133 +270,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/04/8086系列的寻址/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/03/80x86系列寄存器简介/" class="archive-article-date">
-  	<time datetime="2019-10-03T11:59:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-03</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/03/80x86系列寄存器简介/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">8086寄存器简介</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/03/80x86系列寄存器简介/">8086寄存器简介</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/02/CPU的各种参数的意义/" class="archive-article-date">
-  	<time datetime="2019-10-02T13:08:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/02/CPU的各种参数的意义/">CPU的各种参数的意义</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/27/preface/" class="archive-article-date">
-  	<time datetime="2019-09-27T11:50:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/27/preface/">序</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -370,8 +392,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
