@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="reverse-mA">
 <meta property="og:description" content="​    本篇文章将会介绍寻址及7种寻址方式。 ​">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-04T07:14:18.146Z">
+<meta property="og:updated_time" content="2019-10-04T07:39:49.123Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="8086系列的寻址">
 <meta name="twitter:description" content="​    本篇文章将会介绍寻址及7种寻址方式。 ​">
@@ -230,6 +230,7 @@
 <p>​    比如：假设有指令：MOV BX, [BX+SI]，在执行时，(DS)=1000H，(BX)=2100H，(SI)=0011H，内存单元12111H的内容为1234H。在执行过程中，偏移地址中没有BP，所以默认的段寄存器是DS。所以BX去地址：10000H(DS左移4位)+(2100H+0011H) = 12111H中取操作数，即1234H</p>
 <h3 id="2-7-相对基址加变址"><a href="#2-7-相对基址加变址" class="headerlink" title="2.7 相对基址加变址"></a>2.7 相对基址加变址</h3><p>​    其实和基址加变址寻址类似，只不过在基址加变址后可以再跟一个常数，其他相同。</p>
 <p>​    比如：假设指令：MOV AX, [BX+SI+200H]，在执行时，(DS)=1000H，(BX)=2100H，(SI)=0010H，内存单元12310H的内容为1234H。在执行过程中，默认的段寄存器是DS，所以AX去10000H(DS左移4位)+2100H+0010H+200H = 12310H中取操作数，即1234H</p>
+<h2 id="3-参考资料"><a href="#3-参考资料" class="headerlink" title="3. 参考资料"></a>3. 参考资料</h2><p><a href="https://blog.csdn.net/hanchaoman/article/details/9187093" target="_blank" rel="noopener">https://blog.csdn.net/hanchaoman/article/details/9187093</a></p>
 
       
 
