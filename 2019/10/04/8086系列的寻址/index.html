@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="reverse-mA">
 <meta property="og:description" content="​    本篇文章将会介绍寻址及7种寻址方式。 ​">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-04T07:39:49.123Z">
+<meta property="og:updated_time" content="2019-10-04T08:22:19.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="8086系列的寻址">
 <meta name="twitter:description" content="​    本篇文章将会介绍寻址及7种寻址方式。 ​">
@@ -67,6 +67,8 @@
 				<li><a href="/tags/大数据">大数据</a></li>
 	        
 				<li><a href="/tags/操作系统">操作系统</a></li>
+	        
+				<li><a href="/tags/汇编语言">汇编语言</a></li>
 	        
 				<li><a href="/tags/算法">算法</a></li>
 	        
@@ -138,6 +140,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -158,19 +162,21 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 14.285714285714286%"><a href="/">主页</a></li>
+					<li style="width: 12.5%"><a href="/">主页</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/tags/随笔/">随笔</a></li>
+					<li style="width: 12.5%"><a href="/tags/随笔/">随笔</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/tags/软件工程/">软件工程</a></li>
+					<li style="width: 12.5%"><a href="/tags/软件工程/">软件工程</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/tags/大数据">大数据</a></li>
+					<li style="width: 12.5%"><a href="/tags/大数据">大数据</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/tags/操作系统">操作系统</a></li>
+					<li style="width: 12.5%"><a href="/tags/操作系统">操作系统</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/tags/算法">算法</a></li>
+					<li style="width: 12.5%"><a href="/tags/汇编语言">汇编语言</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/tags/游戏评测">游戏评测</a></li>
+					<li style="width: 12.5%"><a href="/tags/算法">算法</a></li>
+		        
+					<li style="width: 12.5%"><a href="/tags/游戏评测">游戏评测</a></li>
 		        
 				</ul>
 			</nav>
@@ -216,7 +222,7 @@
 <h3 id="2-2-寄存器寻址"><a href="#2-2-寄存器寻址" class="headerlink" title="2.2 寄存器寻址"></a>2.2 寄存器寻址</h3><p>​    寄存器寻址，指的是直接将一个寄存器中的操作数取出，并传给另一个寄存器。</p>
 <p>​    比如指令：MOV AX, BX</p>
 <p>​    就直接将BX中的操作数传给了AX</p>
-<h3 id="2-3-直接寻址"><a href="#2-3-直接寻址" class="headerlink" title="2.3 直接寻址"></a>2.3 直接寻址</h3><p>​    直接寻址，指的是指令所要的操作数存放在内存中，在指令中直接给出该操作数的偏移地址，这种寻址方式为直接寻址方式。</p>
+<h3 id="2-3-直接寻址"><a href="#2-3-直接寻址" class="headerlink" title="2.3 直接寻址"></a>2.3 直接寻址</h3><p>​    直接寻址，指的是指令所要的操作数存放在存储单元中，在指令中直接给出该操作数的偏移地址，这种寻址方式为直接寻址方式。</p>
 <p>​    注意，前面的文章提到过，内存的地址是20位的，而一个寄存器只有16位，所以此时传过去的是段内的偏移地址。物理地址将由数据段寄存器DS和指令中给出的有效地址直接形成。</p>
 <p>​    比如：假设有指令：MOV BX, [1234H]，在执行时，(DS)=2000H，内存单元21234H的值为5213H。在执行这条指令的过程中，BX取的是地址1234H+20000H(左移4位)=21234H中的值，即此时BX的值是5213H</p>
 <h3 id="2-4-寄存器间接寻址"><a href="#2-4-寄存器间接寻址" class="headerlink" title="2.4 寄存器间接寻址"></a>2.4 寄存器间接寻址</h3><p>​    寄存器间接寻址，指的是指令所要的操作数存放在存储单元中，在其中一个寄存器中存储着操作数的偏移地址，这种寻址方式为寄存器间接寻址。</p>
@@ -334,6 +340,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/10/04/MOV指令和LEA指令的用法和区别/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          MOV指令和LEA指令的用法和区别
+        
+      </div>
+    </a>
   
   
     <a href="/2019/10/03/80x86系列寄存器简介/" id="article-nav-older" class="article-nav-link-wrap">
@@ -468,6 +483,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">汇编语言</a>
               </li>
             
             <div class="clearfix"></div>

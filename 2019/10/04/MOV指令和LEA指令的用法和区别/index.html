@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | reverse-mA</title>
+  <title>MOV指令和LEA指令的用法和区别 | reverse-mA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="reverse-mA">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="​    本文将简要阐述MOV指令和LEA指令的用法和区别。 ​">
+<meta name="keywords" content="汇编语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MOV指令和LEA指令的用法和区别">
+<meta property="og:url" content="http://yoursite.com/2019/10/04/MOV指令和LEA指令的用法和区别/index.html">
 <meta property="og:site_name" content="reverse-mA">
+<meta property="og:description" content="​    本文将简要阐述MOV指令和LEA指令的用法和区别。 ​">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-04T08:55:38.919Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="reverse-mA">
+<meta name="twitter:title" content="MOV指令和LEA指令的用法和区别">
+<meta name="twitter:description" content="​    本文将简要阐述MOV指令和LEA指令的用法和区别。 ​">
   
     <link rel="alternative" href="/atom.xml" title="reverse-mA" type="application/atom+xml">
   
@@ -186,36 +191,107 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-MOV指令和LEA指令的用法和区别" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/04/MOV指令和LEA指令的用法和区别/" class="archive-article-date">
-  	<time datetime="2019-10-04T08:26:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-04</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/04/MOV指令和LEA指令的用法和区别/">MOV指令和LEA指令的用法和区别</a>
+    <h1 class="article-title" itemprop="name">
+      MOV指令和LEA指令的用法和区别
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/10/04/MOV指令和LEA指令的用法和区别/" class="archive-article-date">
+  	<time datetime="2019-10-04T08:26:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​    本文将简要阐述MOV指令和LEA指令的用法和区别。</p>
+<p>​    <a id="more"></a></p>
+<pre><code>## 1. MOV指令</code></pre><p>​    在汇编语言中，MOV指令是数据传送指令，也是最基本的编程指令，用于将一个数据从源地址传送到目标地址（寄存器间的数据传送本质上也是一样的）。其特点是不破坏源地址单元的内容。</p>
+<p>​    </p>
+<p>​    MOV指令的基本格式：MOV   目的操作数,  源操作数</p>
+<p>​    MOV指令的常见用法：</p>
+<pre><code>1. MOV 寄存器1, 寄存器2：将寄存器2中的值传送到寄存器1中，如：MOV  AX, BX
+ 2. MOV 寄存器1, 立即数：将立即数传送到寄存器1中，如：MOV AX, 1234H
+ 3. MOV 寄存器1，[偏移地址]：将段地址+偏移地址中的值传送到寄存器1，如MOV AX, [0010H]</code></pre><p>​    需要注意的是：</p>
+<ol>
+<li>MOV指令中只能有一个操作数位于内存中</li>
+<li>MOV指令不能对CS和IP做修改，也就是说，这两个寄存器不能作为目的操作数</li>
+<li>MOV指令不支持段寄存器之间的互传</li>
+<li>MOV指令不支持将立即数直接传给段寄存器和IP</li>
+<li>MOV指令中立即数不能做目的操作数，但MOV [1234H], AX这样的指令是可行的    </li>
+</ol>
+<h2 id="2-LEA指令"><a href="#2-LEA指令" class="headerlink" title="2. LEA指令"></a>2. LEA指令</h2><p>​    LEA是微机8086/8088系列的一条指令，取自英语Load effect address——取有效地址，也就是取偏移地址。</p>
+<p>​    指令格式如下: LEA  reg16, mem</p>
+<p>​    LEA指令将存储器操作数mem的4位16进制偏移地址送到指定的寄存器。这里，源操作数必须是存储器操作数，目标操作数必须是16位通用寄存器。因该寄存器常用来作为地址指针，故在此最好选用四个间址寄存器BX,BP,SI,DI之一。</p>
+<p>​    LEA指令的常见用法：</p>
+<pre><code>1. LEA 寄存器1, 变量：将变量的偏移地址传送给寄存器1
+ 2. LEA 寄存器1, [变量]：同上，也就是说此时的括号是没有意义的
+ 3. LEA 寄存器1, [寄存器2]：将寄存器2中的值传送给寄存器1
+ 4. LEA 寄存器1, 寄存器2：不合法</code></pre><p>​    需要注意的是：</p>
+<ol>
+<li>LEA指令的目的操作数必须是16位的通用寄存器</li>
+<li>LEA指令的源操作数必须是放在主存中的操作数或者[寄存器]（不一定准确）</li>
+</ol>
+<h2 id="3-二者的区别"><a href="#3-二者的区别" class="headerlink" title="3. 二者的区别"></a>3. 二者的区别</h2><ol>
+<li>定义上：MOV指令目的是取操作数，LEA指令目的是取偏移地址</li>
+<li>限制条件上，MOV指令和LEA指令的限制条件不同，参考上面即可</li>
+<li>在具体场景运用中，有些不同：<ol>
+<li>对于变量而言，分四种情况：<ol>
+<li>MOV AX, num：表示把num的值传给AX</li>
+<li>MOV AX, [num]：同上</li>
+<li>LEA AX, num：表示把num的地址传给AX</li>
+<li>LEA AX, [num]：同上</li>
+</ol>
+</li>
+<li>对于寄存器而言，同样分四种情况：<ol>
+<li>MOV AX, BX：表示把BX的值传给AX</li>
+<li>MOV AX, [BX]：寄存器间接寻址，此时AX中的值是&lt;段地址：偏移地址&gt;中的值</li>
+<li>LEA AX, BX：不合法</li>
+<li>LEA AX, [BX]：表示把BX的值传给AX</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="4-参考资料"><a href="#4-参考资料" class="headerlink" title="4. 参考资料"></a>4. 参考资料</h2><p><a href="https://blog.csdn.net/weixin_42757111/article/details/82181746" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42757111/article/details/82181746</a></p>
+<p><a href="https://blog.csdn.net/lw001x/article/details/7694626" target="_blank" rel="noopener">https://blog.csdn.net/lw001x/article/details/7694626</a></p>
+<p><a href="https://www.cnblogs.com/xiangtingshen/p/11337236.html" target="_blank" rel="noopener">https://www.cnblogs.com/xiangtingshen/p/11337236.html</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多磨~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -227,171 +303,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/04/MOV指令和LEA指令的用法和区别/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/04/8086系列的寻址/" class="archive-article-date">
-  	<time datetime="2019-10-04T06:35:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-04</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/04/8086系列的寻址/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">8086系列的寻址</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/04/8086系列的寻址/">8086系列的寻址</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/03/80x86系列寄存器简介/" class="archive-article-date">
-  	<time datetime="2019-10-03T11:59:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/03/80x86系列寄存器简介/">8086寄存器简介</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/02/CPU的各种参数的意义/" class="archive-article-date">
-  	<time datetime="2019-10-02T13:08:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/02/CPU的各种参数的意义/">CPU的各种参数的意义</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/27/preface/" class="archive-article-date">
-  	<time datetime="2019-09-27T11:50:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/27/preface/">序</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -414,8 +425,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
