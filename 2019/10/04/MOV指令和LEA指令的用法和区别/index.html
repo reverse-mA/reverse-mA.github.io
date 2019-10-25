@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="reverse-mA">
 <meta property="og:description" content="​    本文将简要阐述MOV指令和LEA指令的用法和区别。 ​">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-04T08:55:38.919Z">
+<meta property="og:updated_time" content="2019-10-25T15:58:55.470Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MOV指令和LEA指令的用法和区别">
 <meta name="twitter:description" content="​    本文将简要阐述MOV指令和LEA指令的用法和区别。 ​">
@@ -213,13 +213,16 @@
       
         <p>​    本文将简要阐述MOV指令和LEA指令的用法和区别。</p>
 <p>​    <a id="more"></a></p>
-<pre><code>## 1. MOV指令</code></pre><p>​    在汇编语言中，MOV指令是数据传送指令，也是最基本的编程指令，用于将一个数据从源地址传送到目标地址（寄存器间的数据传送本质上也是一样的）。其特点是不破坏源地址单元的内容。</p>
+<h2 id="1-MOV指令"><a href="#1-MOV指令" class="headerlink" title="1. MOV指令"></a>1. MOV指令</h2><p>​    在汇编语言中，MOV指令是数据传送指令，也是最基本的编程指令，用于将一个数据从源地址传送到目标地址（寄存器间的数据传送本质上也是一样的）。其特点是不破坏源地址单元的内容。</p>
 <p>​    </p>
 <p>​    MOV指令的基本格式：MOV   目的操作数,  源操作数</p>
 <p>​    MOV指令的常见用法：</p>
-<pre><code>1. MOV 寄存器1, 寄存器2：将寄存器2中的值传送到寄存器1中，如：MOV  AX, BX
- 2. MOV 寄存器1, 立即数：将立即数传送到寄存器1中，如：MOV AX, 1234H
- 3. MOV 寄存器1，[偏移地址]：将段地址+偏移地址中的值传送到寄存器1，如MOV AX, [0010H]</code></pre><p>​    需要注意的是：</p>
+<ol>
+<li>MOV 寄存器1, 寄存器2：将寄存器2中的值传送到寄存器1中，如：MOV  AX, BX</li>
+<li>MOV 寄存器1, 立即数：将立即数传送到寄存器1中，如：MOV AX, 1234H</li>
+<li>MOV 寄存器1，[偏移地址]：将段地址+偏移地址中的值传送到寄存器1，如MOV AX, [0010H]</li>
+</ol>
+<p>​    需要注意的是：</p>
 <ol>
 <li>MOV指令中只能有一个操作数位于内存中</li>
 <li>MOV指令不能对CS和IP做修改，也就是说，这两个寄存器不能作为目的操作数</li>
@@ -231,10 +234,13 @@
 <p>​    指令格式如下: LEA  reg16, mem</p>
 <p>​    LEA指令将存储器操作数mem的4位16进制偏移地址送到指定的寄存器。这里，源操作数必须是存储器操作数，目标操作数必须是16位通用寄存器。因该寄存器常用来作为地址指针，故在此最好选用四个间址寄存器BX,BP,SI,DI之一。</p>
 <p>​    LEA指令的常见用法：</p>
-<pre><code>1. LEA 寄存器1, 变量：将变量的偏移地址传送给寄存器1
- 2. LEA 寄存器1, [变量]：同上，也就是说此时的括号是没有意义的
- 3. LEA 寄存器1, [寄存器2]：将寄存器2中的值传送给寄存器1
- 4. LEA 寄存器1, 寄存器2：不合法</code></pre><p>​    需要注意的是：</p>
+<ol>
+<li>LEA 寄存器1, 变量：将变量的偏移地址传送给寄存器1</li>
+<li>LEA 寄存器1, [变量]：同上，也就是说此时的括号是没有意义的</li>
+<li>LEA 寄存器1, [寄存器2]：将寄存器2中的值传送给寄存器1</li>
+<li>LEA 寄存器1, 寄存器2：不合法</li>
+</ol>
+<p>​    需要注意的是：</p>
 <ol>
 <li>LEA指令的目的操作数必须是16位的通用寄存器</li>
 <li>LEA指令的源操作数必须是放在主存中的操作数或者[寄存器]（不一定准确）</li>
@@ -366,6 +372,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/10/23/大数据复习/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          大数据复习
+        
+      </div>
+    </a>
   
   
     <a href="/2019/10/04/8086系列的寻址/" id="article-nav-older" class="article-nav-link-wrap">
@@ -503,7 +518,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">软件工程</a>
               </li>
             
             <div class="clearfix"></div>
